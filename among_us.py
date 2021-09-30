@@ -1,7 +1,7 @@
 from turtle import *
 hideturtle()
 pensize(10)
-fillcolor('green')
+fillcolor('red')
 speed(8)
 
 
@@ -22,7 +22,7 @@ penup()
 goto(0, 100)
 pendown()
 
-fillcolor('white')
+fillcolor('cyan')
 begin_fill()
 for n in range(2):
   forward(49)
@@ -33,7 +33,7 @@ penup()
 goto(-122, 150)
 pendown()
 
-fillcolor('green')
+fillcolor('red')
 begin_fill()
 left(180)
 for i in [20, 150]:
