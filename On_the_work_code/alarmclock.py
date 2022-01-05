@@ -27,6 +27,14 @@ def alarm():
             print("Time to Wake up")
 
             winsound.PlaySound("sound.wav",winsound.SND_ASYNC)
+            time.sleep(0.7)
+            winsound.PlaySound("sound.wav",winsound.SND_ASYNC)
+            time.sleep(0.7)
+            winsound.PlaySound("sound.wav",winsound.SND_ASYNC)
+            time.sleep(0.7)
+            winsound.PlaySound("sound.wav",winsound.SND_ASYNC)
+            time.sleep(0.7)
+            winsound.PlaySound("sound.wav",winsound.SND_ASYNC)
 
 Label(root,text="Alarm Clock",font=("Helvetica 20 bold"),fg="red").pack(pady=10)
 Label(root,text="Set Time",font=("Helvetica 15 bold")).pack()
