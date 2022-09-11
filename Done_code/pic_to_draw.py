@@ -1,6 +1,6 @@
 import cv2
 
-image = cv2.imread("input.png")
+image = cv2.imread("C:\Users\User\Desktop\code\fun code\Fun-code\Done_code\assets\pic to draw\input.png")
 
 
 gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)

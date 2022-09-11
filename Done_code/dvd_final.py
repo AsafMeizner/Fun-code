@@ -30,13 +30,13 @@ def get_idle_duration():
     lastInputInfo.cbSize = sizeof(lastInputInfo)
     windll.user32.GetLastInputInfo(byref(lastInputInfo))
     millis = windll.kernel32.GetTickCount() - lastInputInfo.dwTime
-    return millis / 1000.0
+    return int(millis / 1000.0)
 #adktime
 
 #main loop
 while True:
     print(get_idle_duration()) #print afktime
-    if get_idle_duration >= 10: #if afktime is greater than 10 seconds
+    if get_idle_duration() >= 10: #if afktime is greater than 10 seconds
         print("You are idle")
 
         #visual portion

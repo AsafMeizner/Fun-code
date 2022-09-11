@@ -42,8 +42,8 @@ def update():
     ball.x = ball.y = 0
   if ball.intersects().hit:
     speed_y = -speed_y
-    speed_x *= 1.1
-    speed_y *= 1.1
+    speed_x *= 1.06
+    speed_y *= 1.06
 
 
 camera.orthographic = True
