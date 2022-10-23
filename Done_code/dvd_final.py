@@ -3,9 +3,10 @@
 from ctypes import Structure, windll, c_uint, sizeof, byref #afktime imports
 
 #visual imports
-from random import randint
+from random import randint, random
 import pygame
 import ctypes
+import os
 #visual imports
 
 exit = False
@@ -40,7 +41,8 @@ while True:
         print("You are idle")
 
         #visual portion
-        logo = pygame.image.load("C:/Users/User/Desktop/all_code/Fun_code/Done_code/assets/logo.png")
+        logo_path = str(f"{os.path.dirname(__file__)}/assets/dvd/logo.png")
+        logo = pygame.image.load(logo_path)
         logo = pygame.transform.scale(logo, (100, 50))
         clock = pygame.time.Clock()
         img_size = logo.get_rect().size
@@ -68,6 +70,10 @@ while True:
                 x_speed = -x_speed
             if (y + img_size[1] >= height) or (y <= 0):
                 y_speed = -y_speed
+
+            if (x + img_size[0] >= width) or (x <= 0) or (y + img_size[1] >= height) or (y <= 0):
+                logo_path = str(f"{os.path.dirname(__file__)}/assets/dvd/logo{randint(1,7)}.png")
+                logo = pygame.image.load(logo_path)
 
             x += x_speed
             y += y_speed

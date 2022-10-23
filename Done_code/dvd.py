@@ -1,6 +1,7 @@
 from random import randint
 import pygame
 import ctypes
+import os
 
 exit = False
 
@@ -17,8 +18,9 @@ fullscreen = True
 
 #     user32 = ctypes.windll.user32
 #     screensize = user32.GetSystemMetrics(78), user32.GetSystemMetrics(79)
-
-logo = pygame.image.load("C:/Users/User/Desktop/all_code/Fun_code/Done_code/assets/logo.png")
+logo_path = str(f"{os.path.dirname(__file__)}/assets/dvd/logo.png")
+logo = pygame.image.load(logo_path)
+# logo = pygame.image.load("C:/Users/User/Desktop/code/fun code/Fun-code/Done_code/assets/dvd/logo.png")
 logo = pygame.transform.scale(logo, (100, 50))
 clock = pygame.time.Clock()
 img_size = logo.get_rect().size
