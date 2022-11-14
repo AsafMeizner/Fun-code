@@ -4,13 +4,13 @@ import time
 
 
 app = Ursina()
-grass_texture = load_texture('assets/grass_block.png')
-stone_texture = load_texture('assets/stone_block.png')
-brick_texture = load_texture('assets/brick_block.png')
-dirt_texture  = load_texture('assets/dirt_block.png')
-sky_texture   = load_texture('assets/skybox.png')
-arm_texture   = load_texture('assets/arm_texture.png')
-punch_sound   = Audio('assets/punch_sound',loop = False, autoplay = False)
+grass_texture = load_texture('assets/minecraft-assets/grass_block.png')
+stone_texture = load_texture('assets/minecraft-assets/stone_block.png')
+brick_texture = load_texture('assets/minecraft-assets/brick_block.png')
+dirt_texture  = load_texture('assets/minecraft-assets/dirt_block.png')
+sky_texture   = load_texture('assets/minecraft-assets/skybox.png')
+arm_texture   = load_texture('assets/minecraft-assets/arm_texture.png')
+punch_sound   = Audio('assets/minecraft-assets/punch_sound',loop = False, autoplay = False)
 block_pick = 1
 
 window.fps_counter.enabled = True
@@ -39,7 +39,7 @@ class Voxel(Button):
 		super().__init__(
 			parent = scene,
 			position = position,
-			model = 'assets/block',
+			model = 'assets/minecraft-assets/block',
 			origin_y = 0.5,
 			texture = texture,
 			color = color.color(0,0,random.uniform(0.9,1)),
@@ -71,7 +71,7 @@ class Hand(Entity):
 	def __init__(self):
 		super().__init__(
 			parent = camera.ui,
-			model = 'assets/arm',
+			model = 'assets/minecraft-assets/arm',
 			texture = arm_texture,
 			scale = 0.2,
 			rotation = Vec3(150,-10,0),

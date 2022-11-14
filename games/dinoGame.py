@@ -1,18 +1,18 @@
 from ursina import *
 import random as r
+import sys
 
 app = Ursina()
 window.fullscreen = True
 window.color = color.white
 
-
-dino = Animation('assets\dino',
+dino = Animation('assets\dino-assets\dino',
                  collider='box',
                  x=-5)
 
 ground1 = Entity(
   model='quad',
-  texture='assets\ground',
+  texture='assets\dino-assets\ground',
   scale=(50,0.5,1),
   z=1
 )
@@ -23,7 +23,7 @@ pair = [ground1, ground2]
 
 cactus = Entity(
   model='quad',
-  texture='assets\cacti',
+  texture='assets\dino-assets\cacti',
   x = 20,
   collider='box'
 )
@@ -56,12 +56,12 @@ def update():
   for c in cacti:
     c.x -= 6*time.dt
   if dino.intersects().hit:
-    dino.texture= 'assets\hit'
+    dino.texture= 'assets\dino-assets\hit'
     application.pause()
 
 
 sound = Audio(
-  'assets\\beep',
+  'assets/dino-assets/beep',
   autoplay=False
 )
 

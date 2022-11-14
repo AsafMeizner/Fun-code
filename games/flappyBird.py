@@ -5,7 +5,7 @@ import random as r
 app = Ursina()
 Sky()
 
-bird = Animation('assets\fly',
+bird = Animation('assets/flappy-assets/fly',
                  collider='box',
                  scale=(2,2,2),
                  y=10)
