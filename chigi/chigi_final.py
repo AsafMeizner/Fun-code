@@ -40,6 +40,10 @@ screen_size = (pygame.display.Info().current_w, pygame.display.Info().current_h)
 window = pygame.display.set_mode(screen_size, pygame.FULLSCREEN)
 clock = pygame.time.Clock()
 
+#play entry sound
+entry_path = pygame.mixer.Sound(os.path.join(os.path.dirname(__file__),"recordings\\entry-sound.mp3"))
+entry_path.play()
+
 #main menue 
 def main_menu():
     exit=False
@@ -105,9 +109,11 @@ def game():
     # Create a variable to keep track of the score
     score = 0
     old_score = 0
+    wrong_clicks = 0
 
     # Create a variable to keep track of the time
     start_time = None
+    overall_time = 0
 
     # Load the background image and scale it to the size of the window
     absolute_path = os.path.dirname(__file__)
@@ -159,6 +165,7 @@ def game():
                     # square_settings = (y * square_size * screen_size[0] + (screen_size[0] / 3) * x + 50, z + (screen_size[1] / 9) * x+300, square_size * screen_size[0], square_size * screen_size[1] + 20)
                     square_settings = (y * square_size * screen_size[0] + (screen_size[0] / 3) * x * 0.93 + 0.05 * screen_size[0], z * square_size * screen_size[1] + (screen_size[1] / 9) * z/3 + screen_size[1] * 0.35, square_size * screen_size[0], square_size * screen_size[1] + 20)
 
+                    print (square_settings)
                     # pygame.draw.rect(window, (255, 255, 255, 100), square_settings)
                     # pygame.draw.rect(window, (255, 255, 255, 100), square_settings)
                     pygame.draw.rect(window, (0, 0, 0), square_settings, 2)
@@ -177,25 +184,42 @@ def game():
         # Wait for the user to click on the square
         # while True:
         old_score = score
+
         while score == old_score:
 
             for event in pygame.event.get():
                 if event.type == pygame.MOUSEBUTTONDOWN:
+
                     # Get the position of the click
                     click_pos = event.pos
 
-                    #set x and y and z as correct cordinates
-                    # sections[square[0]] |||| letters[square[1] % 2] |||| numbers[square[1] // 3]
-                    if square[1] == 0:
-                        x = 2
-                    elif square[1] == 2:
-                        x = 0
+                    start_x = (square[1] // 3) * square_size * screen_size[0] + (screen_size[0] / 3) * (square[0]) * 0.93 + 0.05 * screen_size[0]
 
-                    # Check if the click was within the bounds of the square
-                    if click_pos[0] > ((square[1] // 3) * square_size * screen_size[0] + (screen_size[0] / 3) * (square[0]) * 0.93 + 0.05 * screen_size[0]) and click_pos[0] < (((square[1] // 3) * square_size * screen_size[0] + (screen_size[0] / 3) * (square[0]) * 0.93 + 0.05 * screen_size[0])+(square_size * screen_size[0])) and screen_size[1] > ((square[1] % 2) * square_size * screen_size[1] + (screen_size[1] / 9) * (square[1] % 2) / 3 + screen_size[1] * 0.35) and screen_size[1] < (((square[1] % 2) * square_size * screen_size[1] + (screen_size[1] / 9) * (square[1] % 2) / 3 + screen_size[1] * 0.35)+(square_size * screen_size[1] + 20)):
-                    # if (square[0] * square_size * screen_size[0] <= click_pos[0] < (square[0] + 1) * square_size * screen_size[0]) and (square[1] * square_size * screen_size[1] <= click_pos[1] < (square[1] + 1) * square_size * screen_size[1]):
-                    # if click_pos[0] > (y * square_size * screen_size[0] + (screen_size[0] / 3) * x * 0.93 + 0.05 * screen_size[0]) and click_pos[0] < ((y * square_size * screen_size[0] + (screen_size[0] / 3) * x * 0.93 + 0.05 * screen_size[0])+(square_size * screen_size[0])) and screen_size[1] > (z * square_size * screen_size[1] + (screen_size[1] / 9) * z/3 + screen_size[1] * 0.35) and screen_size[1] < ((z * square_size * screen_size[1] + (screen_size[1] / 9) * z/3 + screen_size[1] * 0.35)+(square_size * screen_size[1] + 20)):
+                    if letters[square[1] % 2] == "L":
+                        start_y = (square[1] % 2+3) * square_size * screen_size[1] + (screen_size[1] / 9) * (square[1] % 2+3) / 3 + screen_size[1] * 0.35
+                    else:
+                        start_y = (square[1] % 2) * square_size * screen_size[1] + (screen_size[1] / 9) * (square[1] % 2) / 3 + screen_size[1] * 0.35
+
+                    print("square[0]: ", square[0])
+                    print("square[1]: ", square[1])
+                    print("square[1]%3: ", square[1]%3)
+
+                    end_x = start_x + (square_size * screen_size[0])
+                    end_y = start_y + (square_size * screen_size[1]) * 1.25
+
+                    size_x = end_x - start_x
+                    size_y = end_y - start_y
+
+                    # pygame.draw.rect(window, (255, 255, 255, 100), (start_x, start_y, size_x, size_y))
+
+                    print("start x: ", start_x, " start y: ", start_y, " end x: ", end_x, " end y: ", end_y)
+
+                    if click_pos[0] > start_x and click_pos[0] < end_x and click_pos[1] > start_y and click_pos[1] < end_y:
+                        # if click_pos[0] > ((square[1] // 3) * square_size * screen_size[0] + (screen_size[0] / 3) * (square[0]) * 0.93 + 0.05 * screen_size[0]) and click_pos[0] < (((square[1] // 3) * square_size * screen_size[0] + (screen_size[0] / 3) * (square[0]) * 0.93 + 0.05 * screen_size[0])+(square_size * screen_size[0])) and screen_size[1] > ((square[1] % 2) * square_size * screen_size[1] + (screen_size[1] / 9) * (square[1] % 2) / 3 + screen_size[1] * 0.35) and screen_size[1] < (((square[1] % 2) * square_size * screen_size[1] + (screen_size[1] / 9) * (square[1] % 2) / 3 + screen_size[1] * 0.35)+(square_size * screen_size[1] + 20)):
                         score += 1
+                        break
+                    else:
+                        wrong_clicks += 1
                         break
                 
                 #exit game
@@ -221,16 +245,31 @@ def game():
             pos = time_label.get_width() - 20, screen_size[1] - 20
             window.blit(time_label, pos)
 
+            #draw the avg time devided by the score
+            if score != old_score:
+                overall_time = overall_time + (pygame.time.get_ticks() - start_time)/1000
+            if score != 0:
+                avg_label = font.render("Avg: {}".format(round(overall_time / score,2)), 1, (0, 0, 0))
+            else:
+                avg_label = font.render("Avg: {}".format(round(overall_time,2)), 1, (0, 0, 0))
+            pos = screen_size[0]/2 - avg_label.get_width()/2, screen_size[1] - 20
+            window.blit(avg_label, pos)
+
+            #draw the wrong clicks
+            wrong_label = font.render("Wrong: {}".format(wrong_clicks), 1, (0, 0, 0))
+            pos = screen_size[0]/2 - wrong_label.get_width()/2, screen_size[1] - 40
+            window.blit(wrong_label, pos)
+
             #write the chosen square to the top of the screen
             label = font.render("Square: {}".format(sections[square[0]] + letters[square[1] % 2] + numbers[square[1] // 3]), 1, (0, 0, 0))
             window.blit(label, (screen_size[0]/2, 0))
 
-            #draw a box of the spot you need to click
-            pygame.draw.rect(window, (255, 255, 255, 100), (square[0] * square_size * screen_size[0] + (screen_size[0] / 3) * square[1], (screen_size[1] / 9) * square[1], square_size * screen_size[0], square_size * screen_size[1]))
-            pygame.draw.rect(window, (0, 0, 0), (square[0] * square_size * screen_size[0] + (screen_size[0] / 3) * square[1], (screen_size[1] / 9) * square[1], square_size * screen_size[0], square_size * screen_size[1]), 2)
-            label = font.render(sections[square[0]] + letters[square[1] % 2] + numbers[square[1] // 3], 1, (0, 0, 0))
-            pos = (square[0] * square_size * screen_size[0] + (screen_size[0] / 3) * square[1] + 20, (screen_size[1] / 9) * square[1] + 20)
-            window.blit(label, pos)
+            # #draw a box of the spot you need to click
+            # pygame.draw.rect(window, (255, 255, 255, 100), (square[0] * square_size * screen_size[0] + (screen_size[0] / 3) * square[1], (screen_size[1] / 9) * square[1], square_size * screen_size[0], square_size * screen_size[1]))
+            # pygame.draw.rect(window, (0, 0, 0), (square[0] * square_size * screen_size[0] + (screen_size[0] / 3) * square[1], (screen_size[1] / 9) * square[1], square_size * screen_size[0], square_size * screen_size[1]), 2)
+            # label = font.render(sections[square[0]] + letters[square[1] % 2] + numbers[square[1] // 3], 1, (0, 0, 0))
+            # pos = (square[0] * square_size * screen_size[0] + (screen_size[0] / 3) * square[1] + 20, (screen_size[1] / 9) * square[1] + 20)
+            # window.blit(label, pos)
 
             pygame.display.update()
 
