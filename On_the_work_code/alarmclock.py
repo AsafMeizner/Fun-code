@@ -22,19 +22,22 @@ def alarm():
  
         current_time = datetime.datetime.now().strftime("%H:%M:%S")
         print(current_time,set_alarm_time)
- 
+
+        Label(root,text="Time until alarm",font=("Helvetica 15 bold")).pack()
+        Label(root,text=f"{hour.get()}:{minute.get()}:{second.get()}",font=("Helvetica 15 bold")).pack()
+
+        
         if current_time == set_alarm_time:
             print("Time to Wake up")
 
+            root2=Tk()
+            root2.title("Alarm")
+            root2.geometry("400x200")
+            Label(root2,text="Wake Up",font=("Helvetica 20 bold"),fg="red").pack(pady=10)
+            Label(root2,text="Wake Up",font=("Helvetica 20 bold"),fg="red").pack(pady=10)
+            Button(root2,text="Stop",font=("Helvetica 15 bold"),command=root2.destroy).pack(pady=10)
             winsound.PlaySound("sound.wav",winsound.SND_ASYNC)
-            time.sleep(0.7)
-            winsound.PlaySound("sound.wav",winsound.SND_ASYNC)
-            time.sleep(0.7)
-            winsound.PlaySound("sound.wav",winsound.SND_ASYNC)
-            time.sleep(0.7)
-            winsound.PlaySound("sound.wav",winsound.SND_ASYNC)
-            time.sleep(0.7)
-            winsound.PlaySound("sound.wav",winsound.SND_ASYNC)
+            root2.mainloop()
 
 Label(root,text="Alarm Clock",font=("Helvetica 20 bold"),fg="red").pack(pady=10)
 Label(root,text="Set Time",font=("Helvetica 15 bold")).pack()
@@ -83,3 +86,12 @@ secs.pack(side=LEFT)
 Button(root,text="Set Alarm",font=("Helvetica 15"),command=Threading).pack(pady=20)
 
 root.mainloop()
+
+#change the input to text and not multiple options
+#add the ability to set the alarm to a specific date
+#add the ability to add multiple alarms and delete them
+#add the ability to add a custom sound
+#add the ability to add a custom message insead of "time to wake up"
+#add below the set time button a button that says "show all alarms" and when clicked it will show all the alarms that are set and the time until they go off and a button to delete them
+#remember the settings of the alarm clock when you close the program and open it again
+#add the ability to minimize the program to the taskbar and when you click it it will open the program again and right click the icon and you will have the option to close the program
